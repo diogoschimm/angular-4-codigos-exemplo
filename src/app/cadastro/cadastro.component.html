@@ -1,0 +1,138 @@
+<div class="wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="text-center">
+                <!-- <h1 class="logo-name">Sample</h1> -->
+            </div>
+            <h3 class="text-center">Registre-se para {{nomeProjeto}}</h3>
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Crie uma conta para vê-lo em ação</h5>
+                </div>
+                <div class="ibox-content">
+                    <form role="form" #f="ngForm">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <app-input-container errorMessage="Campo obrigatório" label="E-mail">
+                                    <input maxlength="60" #email type="email" class="form-control" name="email" [(ngModel)]="model.email" required placeholder="E-mail" autocomplete="off">
+                                </app-input-container>
+                            </div>
+                            <div class="col-lg-4">
+                                <app-input-container label="Senha" errorMessage="Campo obrigatório" errorMessagePreenchido="De 6 a 10 caracteres">
+                                    <input minlength="6" maxlength="10" type="password" class="form-control" name="senha" [(ngModel)]="model.senha" required placeholder="Senha" autocomplete="off">
+                                </app-input-container>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <app-input-container errorMessage="Campo obrigatório" label="Nome Responsável">
+                                    <input maxlength="60" type="text" class="form-control" name="nomeResponsavel" [(ngModel)]="model.nomeResponsavel" required placeholder="Nome do responsável" autocomplete="off">
+                                </app-input-container>
+                            </div>
+                            <div class="col-lg-4">
+                                <app-input-container label="CPF Responsável" errorMessage="Campo obrigatório" errorMessagePreenchido="CPF deve possuir 11 dígitos">
+                                    <input type="text" minlength="14" maxlength="14" class="form-control cpfMask" name="cpfResponsavel" [(ngModel)]="model.cpfResponsavel" required placeholder="CPF do responsável" autocomplete="off">
+                                </app-input-container>
+                            </div>
+                        </div>
+                        <app-input-container errorMessage="Campo obrigatório" label="Razão Social">
+                            <input maxlength="60" type="text" class="form-control" name="razaoSocial" [(ngModel)]="model.razaoSocial" required placeholder="Razão social" autocomplete="off">
+                        </app-input-container>
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <app-input-container errorMessage="Campo obrigatório" label="Nome Fantasia">
+                                    <input maxlength="60" type="text" class="form-control" name="nomeFantasia" [(ngModel)]="model.nomeFantasia" required placeholder="Nome fantasia" autocomplete="off">
+                                </app-input-container>
+                            </div>
+                            <div class="col-lg-5">
+                                <app-input-container label="CNPJ" errorMessage="Campo obrigatório" errorMessagePreenchido="CNPJ deve possuir 14 dígitos">
+                                    <input minlength="18" maxlength="18" type="text" class="form-control cnpjMask" name="cnpj" [(ngModel)]="model.cnpj" required placeholder="CNPJ" autocomplete="off">
+                                </app-input-container>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <app-input-container errorMessage="Campo obrigatório" label="Telefone Celular">
+                                    <input maxlength="15" type="text" class="form-control" name="telefone1" [(ngModel)]="model.telefone1" required placeholder="Telefone Celular" autocomplete="off">
+                                </app-input-container>
+                            </div>
+                            <div class="col-lg-6">
+                                <app-input-container errorMessage="Campo obrigatório" label="Telefone Residencial">
+                                    <input maxlength="15" type="text" class="form-control" name="telefone2" [(ngModel)]="model.telefone2" required placeholder="Telefone Residencial" autocomplete="off">
+                                </app-input-container>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <app-input-group-btn label="CEP" errorMessage="Campo obrigatório" errorMessagePreenchido="CEP deve possuir 8 dígitos" buttonText="Buscar" (clickButton)="buscarCEP()">
+                                    <input #cep minlength="9" maxlength="9" type="text" class="form-control cepMask" name="cep" [(ngModel)]="model.cep" required placeholder="CEP" autocomplete="off">
+                                </app-input-group-btn>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <app-input-container errorMessage="Campo obrigatório" label="Endereço">
+                                    <input #endereco type="text" class="form-control" name="endereco" [(ngModel)]="model.endereco" required placeholder="Endereço" autocomplete="off">
+                                </app-input-container>
+                            </div>
+                            <div class="col-lg-4">
+                                <app-input-container errorMessage="Campo obrigatório" label="Número">
+                                    <input #numeroEnd type="text" class="form-control" name="numeroEndereco" [(ngModel)]="model.numeroEndereco" required placeholder="Número" autocomplete="off">
+                                </app-input-container>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <app-input-container errorMessage="Campo obrigatório" label="Complemento">
+                                    <input #complemento type="text" class="form-control" name="complementoEndereco" [(ngModel)]="model.complementoEndereco" placeholder="Complemento" autocomplete="off">
+                                </app-input-container>
+                            </div>
+                            <div class="col-lg-5">
+                                <app-input-container errorMessage="Campo obrigatório" label="Bairro">
+                                    <input #bairroEndereco type="text" class="form-control" name="bairro" [(ngModel)]="model.bairro" required placeholder="Bairro" autocomplete="off">
+                                </app-input-container>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <app-input-select errorMessage="Campo obrigatório" label="UF">
+                                    <select #uf (change)="carregarCidades(model.uf)" class="form-control" name="uf" [(ngModel)]="model.uf" required placeholder="UF" autocomplete="off">
+                                        <option value="" selected>Selecione...</option>
+                                        <option *ngFor="let uf of ufs"  [value]="uf">{{uf}}</option>
+                                    </select>
+                                </app-input-select>
+                            </div>
+                            <div class="col-lg-8">
+                                <app-input-select valorVazio="0" errorMessage="Campo obrigatório" label="Cidade">
+                                    <select #idCidade data-placeholder="Cidade" class="form-control" name="idCidade" [(ngModel)]="model.idCidade" required>
+                                        <option value="0" selected>Selecione...</option>                                            
+                                        <option *ngFor="let cidade of cidades"  [value]="cidade.idCidade">{{cidade.nomeCidade}}</option>
+                                    </select>
+                                </app-input-select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-6  col-lg-offset-3 text-center">
+                <a (click)="preencherTermoPolitica()" data-toggle="modal" href="#modal-termoPolitica"><small>Termo e Política</small></a>
+                <div class="form-group">
+                    <div class="checkbox i-checks">
+                        <label> <input #IsAceitoTermo type="checkbox" name="IsAceitoTermo" [(ngModel)]="model.IsAceitoTermo" required><i></i>&nbsp;&nbsp;&nbsp;Aceito os termos e a política</label>
+                    </div>
+                </div>
+                <button (click)="f.form.valid && registrar()" [disabled]="isLoading || !f.form.valid || !f.form.dirty || !IsAceitoTermo.checked" type="submit" class="btn btn-primary block full-width m-b">Registrar-se</button>
+                <p class="text-muted text-center"><small>Já possui uma conta?</small></p>
+                <a class="btn btn-sm btn-white btn-block" [routerLink]="['/login']">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+<p class="m-t text-center animated fadeInRight">
+    <small>
+        {{ mensagemDireitos }} &copy; {{ ano }}
+    </small>
+</p>
+<app-termo-view [texto]="termoPolitica"></app-termo-view>

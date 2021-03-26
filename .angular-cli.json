@@ -1,0 +1,89 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "sample"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "assets/css/bootstrap.min.css",
+        "assets/font-awesome/css/font-awesome.css", 
+        "assets/css/plugins/sweetalert/sweetalert.css",
+        "assets/css/plugins/toastr/toastr.min.css",
+        "assets/css/plugins/dataTables/datatables.min.css",
+        "assets/css/plugins/switchery/switchery.css",
+        "assets/css/plugins/iCheck/custom.css",
+        "assets/css/plugins/chosen/bootstrap-chosen.css",
+        "assets/css/plugins/select2/select2.min.css",
+        "assets/css/animate.css",
+        "assets/css/style.css",
+        "styles.css"
+      ],
+      "scripts": [ 
+        "assets/js/jquery-2.1.1.js",
+        "assets/js/bootstrap.min.js", 
+        "assets/js/plugins/metisMenu/jquery.metisMenu.js",
+        "assets/js/plugins/slimscroll/jquery.slimscroll.min.js",
+        "assets/js/plugins/toastr/toastr.min.js",
+        "assets/js/plugins/sweetalert/sweetalert.min.js",
+        "assets/js/plugins/jeditable/jquery.jeditable.js",
+        "assets/js/plugins/dataTables/datatables.min.js",
+        "assets/js/plugins/iCheck/icheck.min.js",
+        "assets/js/plugins/jQueryMask/jquery.mask.min.js",
+        "assets/js/plugins/switchery/switchery.js",
+        "assets/js/plugins/switchery/switchery.custom.js",
+        "assets/js/plugins//select2/select2.full.min.js",
+        "assets/js/plugins/pace/pace.min.js",
+        "assets/js/plugins/peity/jquery.peity.min.js",
+        "assets/js/inspinia.js",
+        "assets/js/demo/peity-demo.js"    
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [
+    {
+      "project": "src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "src/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "css",
+    "component": {}
+  }
+}

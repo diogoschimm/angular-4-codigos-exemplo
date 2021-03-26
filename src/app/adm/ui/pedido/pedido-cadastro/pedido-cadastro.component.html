@@ -1,0 +1,191 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-12">
+        <h2>Pedidos</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a [routerLink]="['/']">Home</a>
+            </li>
+            <li> Cadastros </li>
+            <li>
+                <a [routerLink]="['/produto']">Listagem de Pedidos</a>
+            </li>
+            <li class="active">
+                <strong *ngIf="operacao=='I'">Cadastro de Pedido</strong>
+                <strong *ngIf="operacao=='E'">Edição de Pedido</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content animated fadeInUp">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form>
+
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>Informações do Pedido
+                                        <hr class="sem-margem" />
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Origem Fornecedor</label>
+                                        <select class="form-control">
+                                            <option>Sem Cadastro</option>
+                                            <option>Já Cadastrado</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <label>Fornecedor *</label>
+                                        <input #nomeFornecedor type="text" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr/>
+
+                            <div class="tabs-container">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#tab-itens">Itens</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="tab-itens" class="tab-pane active">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <input placeholder="Buscar Item Adicionado..." type="text" class="form-control" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="background-color: #f3f3f4; border: 1px solid #cbcbcb; height: 200px; overflow-y: scroll;">
+                                                Itens...<br/> Itens...
+                                                <br/> Itens...
+                                                <br/> Itens...
+                                                <br/> Itens...
+                                                <br/> Itens...
+                                                <br/> Itens...
+                                                <br/> Itens...
+                                                <br/> Itens...
+                                                <br/> Itens...
+                                                <br/> Itens...
+                                                <br/> Itens...
+                                                <br/> Itens...
+                                                <br/> Itens...
+                                                <br/> Itens...
+                                                <br/> Itens...
+                                                <br/> Itens...
+                                                <br/>
+                                            </div>
+
+                                            <hr/>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-itemPedido">
+                                                        <i class="fa fa-plus"></i>&nbsp;
+                                                        Incluir
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary">
+                                                        <i class="fa fa-edit"></i>&nbsp;
+                                                        Alterar
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary">
+                                                        <i class="fa fa-remove"></i>&nbsp;
+                                                        Remover
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr/>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Data Pedido *</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Data Chegada *</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>QTD Produtos</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>QTD Itens</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Valor Total</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr/>
+
+                        </div>
+
+
+
+                        <div class="clearfix"></div>
+
+                        <div class="col-md-12 m-t">
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <img *ngIf="isLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                                    />
+                                    <!-- <a class="btn btn-primary" accesskey="f">
+                                        <i class="fa fa-save"></i>&nbsp;
+                                        Salvar e Ficar
+                                    </a>  -->
+                                    <button type="button" (click)="salvarFicar()" class="btn btn-primary" accesskey="f" value="salvarFicar">
+                                        <i class="fa fa-save"></i>&nbsp;
+                                        Salvar e Ficar
+                                    </button>
+                                    <button type="submit" class="btn btn-primary" accesskey="s" value="salvarFechar">
+                                        <i class="fa fa-save"></i>&nbsp;
+                                        Salvar e Fechar
+                                    </button>
+                                    <a class="btn btn-default" [routerLink]="['/produto']" accesskey="x">
+                                        <i class="fa fa-times"></i>&nbsp; Cancelar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-item-cadastro></app-item-cadastro>

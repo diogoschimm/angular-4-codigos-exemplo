@@ -1,0 +1,94 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-sm-4">
+    <h2>Produtos</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a [routerLink]="['/']">Home</a>
+      </li>
+      <li> Cadastros </li>
+      <li class="active">
+        <strong>Listagem de Produtos</strong>
+      </li>
+    </ol>
+  </div>
+  <div class="col-sm-8">
+    <div class="title-action">
+      <a [routerLink]="['novo']" class="btn btn-primary" accesskey="n"><i class="fa fa-plus"></i>&nbsp;Criar novo produto</a>
+    </div>
+  </div>
+</div> 
+<div class="row">
+  <div class="col-lg-12">
+    <div class="wrapper wrapper-content animated fadeInUp">
+      
+      <div class="ibox"> 
+        <div class="ibox-content">
+          <div class="row m-b-sm m-t-sm">
+            <div class="col-md-1">
+              <button type="button" id="loading-example-btn" class="btn btn-white btn-sm" ><i class="fa fa-refresh"></i> Atualizar</button>
+            </div>
+            <div class="col-md-11">
+              <div class="input-group"><input type="text" placeholder="Busca" class="input-sm form-control"> <span class="input-group-btn">
+                <button type="button" class="btn btn-sm btn-primary"> Buscar</button> </span></div>
+              </div>
+            </div> 
+            <table class="table table-hover table-bordered">
+              <thead>
+                <tr *ngIf="lista.length>0" >
+                  <th class="text-center" width="70px">Editar</th>
+                  <th class="text-center" width="70px">Excluir</th>
+                  <th class="text-center">ID</th>
+                  <th>Status</th>
+                  <th>Nome do Produto</th>
+                  <th class="text-right">Preço Compra</th>
+                  <th class="text-right">Preço Venda</th>
+                  <th class="text-right">Lucro Aquisição</th>
+                  <th class="text-right">Estoque</th>
+                </tr>
+              </thead>
+              <tbody> 
+                <tr *ngIf="lista.length==0">
+                  <td>Nenhum produto cadastrado</td>
+                </tr>
+                <tr *ngFor="let item of lista" >
+                  <td class="p-4">
+                    <a  [routerLink]="[item.idProduto, 'editar']" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i>&nbsp;Editar</a>
+                  </td>
+                  <td class="p-4">
+                    <a (click)="excluirRegistro(item)" class="btn btn-white btn-sm"><i class="fa fa-trash"></i>&nbsp;Excluir</a>
+                  </td> 
+                  <td class="text-center">
+                    {{item.idProduto }} 
+                  </td>
+                  <td>
+                    <span class="label label-primary" *ngIf="item.nomeStatusProduto == 'Ativo'">
+                      {{item.nomeStatusProduto}}
+                    </span>
+                    <span class="label label-default" *ngIf="item.nomeStatusProduto == 'Inativo'">
+                      {{item.nomeStatusProduto}}
+                    </span>
+                  </td>
+                  <td>
+                    {{item.nomeProduto}} 
+                  </td>
+                  <td class="text-right">
+                    R$ {{item.ultimoValorCompra | number:'1.2-2'  }} 
+                  </td>
+                  <td class="text-right">
+                    R$ {{item.valorVenda | number:'1.2-2' }} 
+                  </td>
+                  <td class="text-right">
+                    {{ item.percentualLucroAquisicao | number:'1.2-2' | formatPercent }} 
+                  </td>
+                  <td class="text-right">
+                    {{item.qtdEstoque }} 
+                  </td>
+                </tr> 
+              </tbody>
+            </table> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

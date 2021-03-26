@@ -1,0 +1,55 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-12">
+        <h2>Departamentos de Produtos</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a [routerLink]="['/']">Home</a>
+            </li>
+            <li>
+                Gerenciamento
+            </li>
+            <li>
+                <a [routerLink]="['/departamentoProduto']">Listagem de Departamentos</a>
+            </li>
+            <li class="active">
+                  <strong *ngIf="operacao=='I'" >Cadastro de Departamento</strong>
+                  <strong *ngIf="operacao=='E'">Edição de Departamento</strong>
+            </li>
+        </ol>
+    </div>  
+  </div> 
+  <div class="row">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content animated fadeInUp">
+              <div class="ibox float-e-margins"> 
+                  <div class="ibox-content">
+   
+                      <form class="form-horizontal" (ngSubmit)="f.form.valid && f.form.dirty && salvar(f)" #f="ngForm" novalidate>
+                          
+                          <p>Campos com * são de preenchimento obrigatório</p>
+                          <br />
+                          <div class="form-group"><label class="col-lg-3 control-label">Nome do Departamento *</label> 
+                              <div class="col-lg-8">
+                                  <input type="text" class="form-control" name="nomeDepartamentoProduto" [(ngModel)]="model.nomeDepartamentoProduto" #nomeDepartamentoProduto="ngModel" #nomeDepartamentoProdutoInput required>  
+                              </div>
+                          </div> 
+                          <hr>
+                          <div class="form-group">
+                              <div class="col-lg-offset-2 col-lg-10 text-right">  
+                                  <img *ngIf="isLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                  <button type="submit" class="btn btn-success" [disabled]="isLoading || !f.form.valid || !f.form.dirty" accesskey="s"  >
+                                      <i class="fa fa-save"></i>&nbsp;
+                                      Salvar
+                                  </button>   
+                                  <a class="btn btn-danger" [routerLink]="['/departamentoProduto']" accesskey="x">
+                                      <i class="fa fa-times"></i>&nbsp;
+                                      Cancelar
+                                  </a> 
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>

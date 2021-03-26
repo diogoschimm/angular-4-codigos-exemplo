@@ -1,0 +1,11 @@
+<div class="form-group" [class.has-success]="hasSuccess()" 
+                        [class.has-error]="hasError()"
+                        [class.has-feedback]="hasSuccess() || hasError()">
+  <label class="control-label">{{label}}:</label>
+  <ng-content></ng-content>
+  <span *ngIf="hasSuccess() || hasError()"  class="glyphicon form-control-feedback" 
+        [class.glyphicon-ok]="hasSuccess()" 
+        [class.glyphicon-remove]="hasError()"  
+        aria-hidden="true"></span>
+  <span class="help-block" *ngIf="hasError()"><small>{{messagemErro()}}</small></span>
+</div>

@@ -1,0 +1,5 @@
+.input-group .form-control-feedback {
+    margin-left: -36px;    
+    display: inline-block;
+    position: relative;
+}

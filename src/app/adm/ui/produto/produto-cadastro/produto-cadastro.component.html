@@ -1,0 +1,548 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-sm-12">
+    <h2>Produtos</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a [routerLink]="['/']">Home</a>
+      </li>
+      <li> Cadastros </li>
+      <li>
+        <a [routerLink]="['/produto']">Listagem de Produtos</a>
+      </li>
+      <li class="active">
+        <strong *ngIf="operacao=='I'" >Cadastro de Produto</strong>
+        <strong *ngIf="operacao=='E'">Edição de Produto</strong>
+      </li>
+    </ol>
+  </div> 
+</div> 
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="wrapper wrapper-content animated fadeInUp">
+      <div class="ibox float-e-margins"> 
+        <div class="ibox-content"> 
+          <form (ngSubmit)="f.form.valid && salvarFechar(f)" #f="ngForm" novalidate>
+            
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <h3>Informações do Produto <hr class="sem-margem" /></h3>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="form-group"> 
+                    <label>Status do Produto *</label> 
+                    <select class="form-control m-b" name="statusProduto" [(ngModel)]="model.statusProduto" #statusProduto="ngModel">
+                      <option value="A">ATIVO</option>
+                      <option value="I">INATIVO</option>
+                    </select> 
+                  </div>
+                </div>
+                <div class="col-md-5"> 
+                  <div class="form-group">
+                    <label>Código de Barra (LOJA) *</label>  
+                    <input type="text" class="form-control" name="codigoBarra" [(ngModel)]="model.codigoBarra" #codigoBarra="ngModel" #codigoBarraInput required>  
+                  </div>
+                </div>
+                <div class="col-md-3"> 
+                  <div class="form-group">
+                    <label>NCM *</label>  
+                    <input type="text" class="form-control" name="ncm" [(ngModel)]="model.ncm" #ncm="ngModel" required>  
+                  </div>
+                </div>
+              </div>
+            </div> 
+            
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12"> 
+                  <div class="form-group">
+                    <label>Nome do Produto *</label>  
+                    <input type="text" class="form-control" name="nomeProduto" [(ngModel)]="model.nomeProduto" #nomeProduto="ngModel" required>  
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-4"> 
+                  <div class="form-group">
+                    <label>Departamento *</label>  
+                    <select class="form-control m-b" name="idDepartamentoProduto" [(ngModel)]="model.idDepartamentoProduto">
+                      <option value="0">(SELECIONE)</option>
+                      <option *ngFor="let item of listaDepartamentoProduto" value="{{item.idDepartamentoProduto}}">{{ item.nomeDepartamentoProduto }}</option>
+                    </select> 
+                  </div> 
+                </div>
+                
+                <div class="col-md-2"> 
+                  <div class="form-group">
+                    <label>Grupo *</label>  
+                    <select class="form-control m-b" name="idGrupoProduto" [(ngModel)]="model.idGrupoProduto">
+                      <option value="0">(SELECIONE)</option>
+                      <option *ngFor="let item of listaGrupoProduto" value="{{item.idGrupoProduto}}">{{ item.nomeGrupoProduto }}</option>
+                    </select> 
+                  </div> 
+                </div>
+                
+                <div class="col-md-3"> 
+                  <div class="form-group">
+                    <label>SubGrupo *</label>  
+                    <select class="form-control m-b">
+                      <option value="0">(SELECIONE)</option>
+                    </select> 
+                  </div> 
+                </div>
+                
+                <div class="col-md-3"> 
+                  <div class="form-group">
+                    <label>Marca *</label>  
+                    <select class="form-control m-b" name="idMarcaProduto" [(ngModel)]="model.idMarcaProduto">
+                      <option value="0">(SELECIONE)</option>
+                      <option *ngFor="let item of listaMarcaProduto" value="{{item.idMarcaProduto}}">{{ item.nomeMarcaProduto }}</option>
+                    </select> 
+                  </div> 
+                </div>
+                
+              </div> 
+            </div> 
+            
+            
+            <div class="col-md-12">
+              <div class="tabs-container">
+                <ul class="nav nav-tabs"> 
+                  <li class="active"><a data-toggle="tab" href="#tab-precos">Preços</a></li> 
+                  <li class=""><a data-toggle="tab" href="#tab-fornecedores">Fornecedores</a></li> 
+                </ul> 
+                <div class="tab-content">   
+                  <div id="tab-precos" class="tab-pane active">
+                    <div class="panel-body"> 
+                      
+                      <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                          <li class="active"><a data-toggle="tab" href="#tab-varejo"> Definição de Preços</a></li>
+                          <li class=""><a data-toggle="tab" href="#tab-atacado"> Descontos Vendas Atacado</a></li> 
+                        </ul> 
+                        <div class="tab-content"> 
+                          
+                          <div id="tab-varejo" class="tab-pane active">
+                            <div class="panel-body">
+                              
+                              <h3 class="text-center"><small>PRODUTO</small><br /><strong>{{model.nomeProduto}}</strong></h3>
+                              
+                              <div class="alert alert-warning">
+                                <strong>Atenção: </strong> O preço de custo total do produto será a soma: (<strong>Preço de Compra + % ICMS + % IPI + % Frete + % Operação</strong>) 
+                              </div> 
+                              
+                              
+                              <div class="row">
+                                <div class="col-md-6" style="border-right: 1px solid #eee;">
+                                  
+                                  <div class="form-horizontal">
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="form-group"> 
+                                          <label class="col-lg-4 control-label">Preço de Compra:</label>  
+                                          <div class="col-lg-8"> 
+                                            <div class="input-group">
+                                              <span class="input-group-addon">R$</span> 
+                                              <input type="text" class="form-control" name="ultimoPrecoCompra" [(ngModel)]="model.ultimoValorCompra" (input)="ultimoPrecoCompra_inputed($event.target.value)" >  
+                                            </div> 
+                                          </div> 
+                                        </div>
+                                      </div>
+                                    </div> 
+                                    
+                                    <hr  class="sem-margem" />
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="form-group">
+                                          <label class="col-lg-4 control-label">ICMS:</label>  
+                                          <div class="col-lg-4">
+                                            <div class="input-group">
+                                              <span class="input-group-addon">%</span> 
+                                              <input type="text" class="form-control" name="percentualICMS" [(ngModel)]="model.percentualICMS" (input)="percentualICMS_inputed($event.target.value)" />  
+                                            </div>
+                                          </div>   
+                                          <div class="col-lg-4">
+                                            <div class="input-group">
+                                              <span class="input-group-addon">R$</span> 
+                                              <input type="text" class="form-control" name="icmsValor" value="{{obterICMS() | number : '1.2-2'}}"  disabled />
+                                            </div> 
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="form-group">
+                                          <label class="col-lg-4 control-label">IPI:</label>    
+                                          <div class="col-lg-4">
+                                            <div class="input-group">
+                                              <span class="input-group-addon">%</span> 
+                                              <input type="text" class="form-control" name="percentualIPI" [(ngModel)]="model.percentualIPI"  (input)="percentualIPI_inputed($event.target.value)"/>
+                                            </div>
+                                          </div>   
+                                          <div class="col-lg-4">
+                                            <div class="input-group">
+                                              <span class="input-group-addon">R$</span> 
+                                              <input type="text" class="form-control" name="ipiValor" value="{{obterIPI() | number : '1.2-2'}}"  disabled />
+                                            </div> 
+                                          </div> 
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="form-group">
+                                          <label class="col-lg-4 control-label">Frete:</label>    
+                                          <div class="col-lg-4">
+                                            <div class="input-group">
+                                              <span class="input-group-addon">%</span> 
+                                              <input type="text" class="form-control" name="percentualFrete" [(ngModel)]="model.percentualFrete" (input)="percentualFrete_inputed($event.target.value)"/>
+                                            </div>
+                                          </div>   
+                                          <div class="col-lg-4">
+                                            <div class="input-group">
+                                              <span class="input-group-addon">R$</span> 
+                                              <input type="text" class="form-control" value="{{obterFrete() | number : '1.2-2'}}" disabled />
+                                            </div> 
+                                          </div> 
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="form-group">
+                                          <label class="col-lg-4 control-label">Operação:</label>    
+                                          <div class="col-lg-4">
+                                            <div class="input-group">
+                                              <span class="input-group-addon">%</span> 
+                                              <input type="text" class="form-control" name="percentualOperacao" [(ngModel)]="model.percentualOperacao" (input)="percentualOperacao_inputed($event.target.value)"/>
+                                            </div>
+                                          </div>   
+                                          <div class="col-lg-4">
+                                            <div class="input-group">
+                                              <span class="input-group-addon">R$</span> 
+                                              <input type="text" class="form-control" value="{{obterOperacao() | number : '1.2-2'}}" disabled />
+                                            </div> 
+                                          </div> 
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+                                    
+                                    <hr  class="sem-margem" />
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="form-group">
+                                          <label class="col-lg-4 control-label">Totais:</label>    
+                                          <div class="col-lg-4">
+                                            <div class="input-group">
+                                              <span class="input-group-addon">%</span> 
+                                              <input type="text" class="form-control" value="{{obterTotalPercentual() | number : '1.2-2'}}" disabled />  
+                                            </div>
+                                          </div>   
+                                          <div class="col-lg-4">
+                                            <div class="input-group">
+                                              <span class="input-group-addon">R$</span> 
+                                              <input type="text" class="form-control" value="{{obterTotalValor() | number : '1.2-2'}}" disabled />
+                                            </div> 
+                                          </div> 
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+                                    <hr  class="sem-margem" />
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="form-group">
+                                          <label class="col-lg-4 control-label">Preço Custo Total:</label>    
+                                          <div class="col-lg-8"> 
+                                            <div class="input-group">
+                                              <span class="input-group-addon">R$</span> 
+                                              <input type="text" class="form-control" disabled value="{{obterPrecoCustoFinal() | number : '1.2-2'}}" />  
+                                            </div>     
+                                          </div> 
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+                                  </div>
+                                  
+                                </div>
+                                <div class="col-md-6">
+                                  <h3>Preço de Venda</h3>
+                                  <hr class="sem-margem" />
+                                  
+                                  <div class="alert alert-info text-center">
+                                    Preencha o Lucro de Aquisição ou o Preço de Venda.
+                                  </div>
+                                  
+                                  <div class="form-horizontal">
+                                    
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="form-group">
+                                          <label class="col-lg-4 control-label">Lucro Aquisição:</label>    
+                                          <div class="col-lg-8">
+                                            <div class="input-group">
+                                              <span class="input-group-addon">%</span> 
+                                              <input type="text" class="form-control" #percentualAquisicaoInput  name="percentualAquisicao" [(ngModel)]="model.percentualAquisicao"  (input)="percentualAquisicao_inputed($event.target.value)" [disabled]="strCampoHabilitado != 'P'" />
+                                              <a data-toggle="tooltip" data-placement="top"  title="Clique para alterar este campo manualmente!" class="input-group-addon"  style="width:40px" (click)="habilitar('P')" >
+                                                <i class="fa fa-edit" aria-hidden="true" *ngIf="strCampoHabilitado == 'P'" ></i>  
+                                                <i class="fa fa-ban" aria-hidden="true" *ngIf="strCampoHabilitado != 'P'" ></i>  
+                                              </a> 
+                                            </div>
+                                          </div>    
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+                                    <hr class="sem-margem" /> 
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="form-group">
+                                          <label class="col-lg-4 control-label">Preço de Venda:</label>    
+                                          <div class="col-lg-8">
+                                            <div class="input-group">
+                                              <span class="input-group-addon">R$</span> 
+                                              <input type="text" class="form-control" #valorVendaInput  name="valorVenda" [(ngModel)]="model.valorVenda"  (input)="valorVenda_inputed($event.target.value)" [disabled]="strCampoHabilitado != 'V'"/>
+                                              
+                                              <a data-toggle="tooltip" data-placement="top"  title="Clique para alterar este campo manualmente!" class="input-group-addon" style="width: 40px" (click)="habilitar('V')">
+                                                <i class="fa fa-edit" aria-hidden="true" *ngIf="strCampoHabilitado == 'V'" ></i>  
+                                                <i class="fa fa-ban" aria-hidden="true" *ngIf="strCampoHabilitado != 'V'" ></i>  
+                                              </a> 
+                                            </div>
+                                          </div>    
+                                        </div>
+                                      </div>
+                                    </div> 
+                                    <hr class="sem-margem" />
+                                    
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="form-group">
+                                          <label class="col-lg-4 control-label">Margem de Lucro:</label>    
+                                          <div class="col-lg-4">
+                                            <div class="input-group">
+                                              <span class="input-group-addon">%</span> 
+                                              <input type="text" class="form-control" value="{{obterMargemLucroPercentual() | number : '1.2-2'}}" disabled />  
+                                            </div>
+                                          </div>   
+                                          <div class="col-lg-4">
+                                            <div class="input-group">
+                                              <span class="input-group-addon">R$</span> 
+                                              <input type="text" class="form-control" value="{{obterMargemLucroValor() | number : '1.2-2'}}" disabled />
+                                            </div> 
+                                          </div> 
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <hr class="sem-margem" />
+                                    
+                                    <div class="text-center">
+                                      Preço de Venda Final
+                                      <h1><strong>R$ {{obterPrecoVendaFinalTela() | number : '1.2-2'}}</strong></h1>
+                                    </div>
+                                    
+                                  </div> 
+                                  
+                                </div> 
+                              </div>
+                              
+                              
+                            </div>
+                          </div>
+                          <div id="tab-atacado" class="tab-pane">
+                            <div class="panel-body">
+                             
+                                <h3 class="text-center"><small>PRODUTO</small><br /><strong>{{model.nomeProduto}}</strong></h3>
+                                
+                                <div class="alert alert-warning">
+                                  Para descontos no atacado o sistema irá identificar a quantidade de produtos comprados e lançará o desconto correspondente no final da Nota Fiscal. O Desconto de Atacado está disponível somente para itens da mesma venda.
+                                </div> 
+                              <h3>Preços de "ATACADO" para compras de quantidades maiores que:</h3>
+                              <hr class="sem-margem" /> 
+
+                              <div class="row">
+                                <div class="col-md-2">
+                                  <div class="form-group">
+                                    <label>QTD:</label>     
+                                        <input type="text" class="form-control" [(ngModel)]="precosAtacado.qtdProdutoAtac" name="qtdProdutoAtac" />  
+                                  </div>
+                                </div>
+                                <div class="col-md-2">
+                                  <div class="form-group">
+                                    <label>% Desconto:</label>    
+                                        <input type="text" class="form-control" [(ngModel)]="precosAtacado.descontoProdutoAtac" name="descontoProdutoAtac" />  
+                                  </div>
+                                </div>
+                                <div class="col-md-2">
+                                  <div class="form-group">
+                                    <label>De:</label>    
+                                      <div class="input-group">
+                                        <span class="input-group-addon">R$</span> 
+                                        <input type="text" class="form-control" value="{{model.valorVenda}}" disabled />  
+                                      </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-2">
+                                  <div class="form-group">
+                                    <label>Por:</label>    
+                                      <div class="input-group">
+                                        <span class="input-group-addon">R$</span> 
+                                        <input type="text" class="form-control" value="{{obterPrecoVendaAtacado() | number : '1.2-2'}}" disabled />  
+                                      </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-2">
+                                  <div class="form-group">
+                                    <label title="Lucro aquisição no preço Atacado" >Lucro aquis. Atac:</label>    
+                                      <div class="input-group">
+                                        <span class="input-group-addon">%</span> 
+                                        <input type="text" class="form-control" value="{{obterLucroAquisicaoAtacado() | number : '1.2-2'}}" disabled />  
+                                      </div>
+                                  </div>
+                                </div>
+
+                                <div class="col-md-2 mt-1-7"> 
+                                    <a class="btn btn-primary"  (click)="adicionarDescontoAtacado()"  >
+                                      <i class="fa fa-plus"></i>&nbsp;
+                                      Adicionar
+                                    </a>  
+                                </div>
+                              </div> 
+                              <hr />
+                              <div class="row">
+                                <div class="col-md-12">
+ 
+                                  <table class="table table-hover table-bordered table-middle">
+                                      <thead>
+                                        <tr *ngIf="model.listaProdutoDescontoAtacado.length>0" > 
+                                          <th colspan="4"></th>
+                                          <th class="text-center divisao" colspan="2">
+                                            <h3 class="sem-mar">VAREJO</h3>
+                                          </th>
+                                          <th class="text-center divisao" colspan="3">
+                                              <h3 class="sem-mar">ATACADO</h3>
+                                          </th> 
+                                        </tr>
+                                      </thead>
+                                      <thead>
+                                          <tr *ngIf="model.listaProdutoDescontoAtacado.length>0" > 
+                                            <th class="text-center" width="30px">#</th>  
+                                            <th class="text-center" width="70px" >QTD</th>
+                                            <th class="text-right" width="100px" >Desconto(%)</th>
+                                            <th class="text-right">Custo Total</th>
+                                            <th class="text-right divisao">Preço Varejo</th>
+                                            <th class="text-right">Lucro Aquis.(%)</th>
+                                            <th class="text-right divisao">Preço Atac.</th>
+                                            <th class="text-right">Lucro Aquis.(%)</th>
+                                            <th class="text-right">Venda Total</th>
+                                          </tr>
+                                        </thead>
+                                      <tbody> 
+                                          <tr *ngIf="model.listaProdutoDescontoAtacado.length==0">
+                                            <td>Nenhuma configuração de preços de atacado cadastrada</td>
+                                          </tr>
+                                          <tr *ngFor="let item of model.listaProdutoDescontoAtacado;let i = index" > 
+                                            <td class="p-4">
+                                              <a (click)="excluirProdutoDescontoAtacado(item)" class="btn btn-white btn-sm"><i class="fa fa-trash"></i></a>
+                                            </td>   
+                                            <td class="text-center padding-1">
+                                              <input  [(ngModel)]="item.qtdProduto" name="itemqtdProduto_{{i}}"  class="form-control" style="width:70px;display:inline-block" />
+                                            </td> 
+                                            <td class="text-right text-danger padding-1">
+                                                <input [(ngModel)]="item.descontoProduto" name="itemdescontoProduto_{{i}}"  class="form-control" style="width:100px;display:inline-block" />
+                                            </td> 
+                                            <td class="text-right">
+                                              R$ {{ obterPrecoCustoFinal() | number : '1.2-2' }} 
+                                            </td> 
+                                            <td class="text-right divisao">
+                                              R$ {{ model.valorVenda }} 
+                                            </td> 
+                                            <td class="text-right">
+                                              {{model.percentualAquisicao}} %
+                                            </td> 
+                                            <td class="text-right bg-info divisao">
+                                              <strong>R$ {{ obterPrecoVendaAtacadoGrid(item) | number:'1.2-2' }} </strong>
+                                            </td> 
+                                            <td class="text-right">
+                                              {{ obterLucroAquisicaoAtacadoGrid(item) | number:'1.2-2' | formatPercent }} 
+                                            </td> 
+                                            <td class="text-right padding-1">
+                                              <small>De: R$ {{ obterVendaVarejoGrid(item) | number:'1.2-2' }}</small> <br>
+                                              <strong>R$ {{ obterVendaAtacadoGrid(item) | number:'1.2-2' }} </strong>
+                                            </td> 
+                                          </tr> 
+                                        </tbody>
+                                      </table>  
+                                    </div>
+                                  </div> 
+
+                            </div>
+                          </div> 
+                          
+                          
+                        </div>
+                      </div>  
+                    </div>
+                  </div> 
+                  <!--Fim Tab-2 -->
+                  
+                  
+                  <div id="tab-fornecedores" class="tab-pane">
+                    <div class="panel-body"> 
+                      
+                    </div>
+                  </div>
+                  <!-- Fim Tab Fornecedor -->
+                  
+                </div>     
+              </div>     
+            </div>                  
+            
+            
+            
+            <div class="clearfix"></div>
+            
+            <div class="col-md-12 m-t">
+              <div class="row">  
+                <div class="col-md-12 text-right">
+                  <img *ngIf="isLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                  <!-- <a class="btn btn-primary" accesskey="f">
+                    <i class="fa fa-save"></i>&nbsp;
+                    Salvar e Ficar
+                  </a>  -->
+                  <button type="button" (click)="salvarFicar()" class="btn btn-primary" [disabled]="isLoading || !f.form.valid" accesskey="f" value="salvarFicar"  >
+                    <i class="fa fa-save"></i>&nbsp;
+                    Salvar e Ficar
+                  </button>   
+                  <button type="submit" class="btn btn-primary" [disabled]="isLoading || !f.form.valid" accesskey="s" value="salvarFechar"  >
+                    <i class="fa fa-save"></i>&nbsp;
+                    Salvar e Fechar
+                  </button>   
+                  <a class="btn btn-default" [routerLink]="['/produto']" accesskey="x">
+                    <i class="fa fa-times"></i>&nbsp;
+                    Cancelar
+                  </a> 
+                </div>
+              </div> 
+            </div>
+          </form>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

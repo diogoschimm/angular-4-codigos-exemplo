@@ -1,0 +1,47 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Usuários</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a [routerLink]="['/']">Home</a>
+            </li>
+            <li>
+                Gerenciamento
+            </li>
+            <li class="active">
+                <strong>Listagem de Usuários</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a [routerLink]="['novo']" class="btn btn-primary" accesskey="n"><i class="fa fa-plus"></i>&nbsp;Criar novo usuário</a>
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">  
+        <div class="col-lg-3" *ngFor="let item of lista" > 
+            <div class="contact-box center-version"> 
+                <div class="eng-contato"> 
+                    <img alt="image" class="img-circle" src="assets/img/a9.jpg"> 
+                    <h3 class="m-b-xs" title="{{item.nomeUsuario}}"><strong>{{ item.nomeUsuario | tratamentoNome}}</strong></h3>
+                    <div class="font-bold"><i class="fa fa-map-marker"></i> {{ item.loginUsuario }}</div> 
+                    <address class="m-t-md">
+                        <strong>Twitter, Inc.</strong><br>
+                        795 Folsom Ave, Suite 600<br>
+                        San Francisco, CA 94107<br>
+                        <abbr title="Phone">P:</abbr> (123) 456-7890
+                    </address>
+                </div>
+                <div class="contact-box-footer">
+                    <div class="m-t-xs btn-group">
+                        <!-- <a [routerLink]="[item.IdUsuario]" class="btn btn-xs btn-white"><i class="fa fa-user"></i> Perfil </a> -->
+                        <a [routerLink]="[item.idUsuario, 'editar']" class="btn btn-xs btn-white"><i class="fa fa-pencil"></i> Editar</a>
+                        <a (click)="excluirRegistro(item)" class="btn btn-xs btn-white"><i class="fa fa-trash-o"></i> Excluir</a>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>

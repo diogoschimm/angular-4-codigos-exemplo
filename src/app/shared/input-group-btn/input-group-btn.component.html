@@ -1,0 +1,15 @@
+<div class="form-group" [class.has-success]="hasSuccess()" 
+                        [class.has-error]="hasError()"
+                        [class.has-feedback]="hasSuccess() || hasError()">
+  <label class="control-label">{{label}}:</label>
+  <div class="input-group">
+      <ng-content></ng-content>
+      <span *ngIf="hasSuccess() || hasError()"  class="glyphicon form-control-feedback" 
+            [class.glyphicon-ok]="hasSuccess()" 
+            [class.glyphicon-remove]="hasError()" aria-hidden="true"></span>
+      <span class="input-group-btn"> 
+          <button [disabled]="!hasSuccess()" (click)="emitClickButton()" type="button" class="btn btn-primary">{{buttonText}}</button> 
+      </span>
+  </div>
+  <span class="help-block" *ngIf="hasError()"><small>{{messagemErro()}}</small></span>
+</div>

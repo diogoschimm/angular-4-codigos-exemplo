@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+.mt-1-5 { margin-top: 1.5em;}
+.mt-1-7 { margin-top: 1.7em;}
+.mt-2 { margin-top: 2em; }
+.sem-margem{ margin: 5px 0 15px 0;}
+
+.p-4{padding: 4px !important;}     
+.p-4 .btn{margin-bottom: 0px !important;}
+
+table.table-middle tr td{vertical-align: middle !important;}
+
+.sem-mar{margin: 0px !important;}
+
+.padding-1{padding: 1px !important;}
+
+.divisao{border-left: 2px solid #CCC !important;}
